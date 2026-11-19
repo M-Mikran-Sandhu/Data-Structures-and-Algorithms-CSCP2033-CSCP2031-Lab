@@ -1,0 +1,2878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures and Algorithms - Code Showcase</title>
+	<link rel="icon" href="https://i.pinimg.com/736x/f6/3f/4c/f63f4c2b21694578d39deaae47c73f4c.jpg">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Slate Blue */
+            --secondary-color: #8e44ad; /* Royal Purple */
+            --accent-color: #f1c40f; /* Sunflower Yellow/Gold */
+            --background-color: #ecf0f1; /* Light Greyish Blue */
+            --text-color: #34495e; /* Wet Asphalt (Dark Grey) */
+            --light-text-color: #ffffff;
+            --border-color: #bdc3c7; /* Silver */
+            --code-bg-color: #282c34; /* Dark background for code */
+            --code-text-color: #abb2bf; /* Light grey for code text */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1600px; /* Allow wider content */
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.2em;
+            font-weight: 300;
+        }
+
+        header h1 a {
+            color: var(--light-text-color);
+            text-decoration: none;
+        }
+         header h1 a:hover {
+            color: var(--accent-color);
+        }
+
+        header p {
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
+            color: var(--border-color); /* Lighter text for description */
+        }
+
+        header .repo-link-header {
+            font-size: 0.9em;
+        }
+
+        header .repo-link-header a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header .repo-link-header a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar {
+            width: 25%;
+            min-width: 280px; /* Min width for file list */
+            background-color: #ffffff;
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; /* Scroll if file list is long */
+            box-shadow: 1px 0 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar h2 {
+            font-size: 1.6em;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: 500;
+        }
+
+        .file-list ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .file-list li {
+            margin-bottom: 8px;
+        }
+
+        .file-list a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .file-list a:hover, .file-list a.active {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+        }
+
+        .file-list a.dir-link { /* Style for directory links */
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        .file-list a.dir-link:hover {
+             background-color: var(--primary-color);
+        }
+
+
+        .main-content {
+            flex-grow: 1;
+            padding: 25px 30px;
+            overflow-y: auto; /* Scroll for long content */
+        }
+
+        .main-content h2.welcome-message {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .file-content-wrapper {
+            /* This div will be replaced by Python script */
+        }
+
+        .file-content-display { /* Class for individual file content sections */
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            margin-bottom: 25px; /* Space between content blocks if multiple are shown */
+        }
+
+        .file-content-display h3 {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 12px 20px;
+            margin: 0;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            font-size: 1.3em;
+            font-weight: 500;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .file-content-display pre {
+            background-color: var(--code-bg-color);
+            color: var(--code-text-color);
+            padding: 20px;
+            margin: 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--border-color); /* Lighter text for footer */
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) { /* Medium devices (tablets, less than 992px) */
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                min-width: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 40vh; /* Limit height of sidebar on small screens */
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+        @media (max-width: 768px) { /* Small devices (landscape phones, less than 768px) */
+             header h1 {
+                font-size: 2em;
+            }
+            .sidebar h2 {
+                font-size: 1.4em;
+            }
+             .file-content-display h3 {
+                font-size: 1.15em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="https://github.com/M-Mikran-Sandhu/Data-Structures-and-Algorithms-CSCP2033-CSCP2031-Lab" target="_blank">Data Structures and Algorithms</a></h1>
+        <p>Practice programs for CSCP2033 and CSCP2031 Lab.</p>
+        <p class="repo-link-header">Repository: <a href="https://github.com/M-Mikran-Sandhu/Data-Structures-and-Algorithms-CSCP2033-CSCP2031-Lab" target="_blank">https://github.com/M-Mikran-Sandhu/Data-Structures-and-Algorithms-CSCP2033-CSCP2031-Lab</a></p>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>File Explorer</h2>
+            <nav class="file-list">
+                <ul id="file-list-ul">
+                    <li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="01-binary-search-trees/" class="dir-link">01-binary-search-trees/</a></li>
+<li><a href="#file-01-binary-search-trees-README_md" data-filepath="01-binary-search-trees/README.md">01-binary-search-trees/README.md</a></li>
+<li><a href="#file-01-binary-search-trees-a-tree-cycle-check_cpp" data-filepath="01-binary-search-trees/a-tree-cycle-check.cpp">01-binary-search-trees/a-tree-cycle-check.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-check-tree-balance_cpp" data-filepath="01-binary-search-trees/check-tree-balance.cpp">01-binary-search-trees/check-tree-balance.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-inorder-traversal-example-2_cpp" data-filepath="01-binary-search-trees/inorder-traversal-example-2.cpp">01-binary-search-trees/inorder-traversal-example-2.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-inorder-traversal_cpp" data-filepath="01-binary-search-trees/inorder-traversal.cpp">01-binary-search-trees/inorder-traversal.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-level-order-and-node-queries_cpp" data-filepath="01-binary-search-trees/level-order-and-node-queries.cpp">01-binary-search-trees/level-order-and-node-queries.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-mirror-tree_cpp" data-filepath="01-binary-search-trees/mirror-tree.cpp">01-binary-search-trees/mirror-tree.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-postorder-traversal-example-2_cpp" data-filepath="01-binary-search-trees/postorder-traversal-example-2.cpp">01-binary-search-trees/postorder-traversal-example-2.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-postorder-traversal_cpp" data-filepath="01-binary-search-trees/postorder-traversal.cpp">01-binary-search-trees/postorder-traversal.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-preorder-traversal-example-2_cpp" data-filepath="01-binary-search-trees/preorder-traversal-example-2.cpp">01-binary-search-trees/preorder-traversal-example-2.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-preorder-traversal_cpp" data-filepath="01-binary-search-trees/preorder-traversal.cpp">01-binary-search-trees/preorder-traversal.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-preorder-tree_cpp" data-filepath="01-binary-search-trees/preorder-tree.cpp">01-binary-search-trees/preorder-tree.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-print-leaf-nodes_cpp" data-filepath="01-binary-search-trees/print-leaf-nodes.cpp">01-binary-search-trees/print-leaf-nodes.cpp</a></li>
+<li><a href="#file-01-binary-search-trees-sibling-nodes_cpp" data-filepath="01-binary-search-trees/sibling-nodes.cpp">01-binary-search-trees/sibling-nodes.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="02-avl-trees/" class="dir-link">02-avl-trees/</a></li>
+<li><a href="#file-02-avl-trees-README_md" data-filepath="02-avl-trees/README.md">02-avl-trees/README.md</a></li>
+<li><a href="#file-02-avl-trees-avl-tree-inorder_cpp" data-filepath="02-avl-trees/avl-tree-inorder.cpp">02-avl-trees/avl-tree-inorder.cpp</a></li>
+<li><a href="#file-02-avl-trees-avl-tree-preorder_cpp" data-filepath="02-avl-trees/avl-tree-preorder.cpp">02-avl-trees/avl-tree-preorder.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="03-linked-lists/" class="dir-link">03-linked-lists/</a></li>
+<li><a href="#file-03-linked-lists-README_md" data-filepath="03-linked-lists/README.md">03-linked-lists/README.md</a></li>
+<li><a href="#file-03-linked-lists-account-transaction-records_cpp" data-filepath="03-linked-lists/account-transaction-records.cpp">03-linked-lists/account-transaction-records.cpp</a></li>
+<li><a href="#file-03-linked-lists-browser-history_cpp" data-filepath="03-linked-lists/browser-history.cpp">03-linked-lists/browser-history.cpp</a></li>
+<li><a href="#file-03-linked-lists-singly-linked-list_py" data-filepath="03-linked-lists/singly-linked-list.py">03-linked-lists/singly-linked-list.py</a></li>
+<li><a href="#file-03-linked-lists-song-playlist_cpp" data-filepath="03-linked-lists/song-playlist.cpp">03-linked-lists/song-playlist.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="04-queues-and-priority-queues/" class="dir-link">04-queues-and-priority-queues/</a></li>
+<li><a href="#file-04-queues-and-priority-queues-README_md" data-filepath="04-queues-and-priority-queues/README.md">04-queues-and-priority-queues/README.md</a></li>
+<li><a href="#file-04-queues-and-priority-queues-age-priority-queue_cpp" data-filepath="04-queues-and-priority-queues/age-priority-queue.cpp">04-queues-and-priority-queues/age-priority-queue.cpp</a></li>
+<li><a href="#file-04-queues-and-priority-queues-simple-queue_cpp" data-filepath="04-queues-and-priority-queues/simple-queue.cpp">04-queues-and-priority-queues/simple-queue.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="05-graphs-and-matrices/" class="dir-link">05-graphs-and-matrices/</a></li>
+<li><a href="#file-05-graphs-and-matrices-README_md" data-filepath="05-graphs-and-matrices/README.md">05-graphs-and-matrices/README.md</a></li>
+<li><a href="#file-05-graphs-and-matrices-undirected-graph-adjacency-matrix_cpp" data-filepath="05-graphs-and-matrices/undirected-graph-adjacency-matrix.cpp">05-graphs-and-matrices/undirected-graph-adjacency-matrix.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="06-hash-tables/" class="dir-link">06-hash-tables/</a></li>
+<li><a href="#file-06-hash-tables-README_md" data-filepath="06-hash-tables/README.md">06-hash-tables/README.md</a></li>
+<li><a href="#file-06-hash-tables-linear-probing-hash-table_cpp" data-filepath="06-hash-tables/linear-probing-hash-table.cpp">06-hash-tables/linear-probing-hash-table.cpp</a></li>
+<li><a href="#" onclick="event.preventDefault(); return false;" data-filepath="07-heaps/" class="dir-link">07-heaps/</a></li>
+<li><a href="#file-07-heaps-README_md" data-filepath="07-heaps/README.md">07-heaps/README.md</a></li>
+<li><a href="#file-07-heaps-min-heap_cpp" data-filepath="07-heaps/min-heap.cpp">07-heaps/min-heap.cpp</a></li>
+<li><a href="#file-README_md" data-filepath="README.md">README.md</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- This div will contain all file content sections generated by Python -->
+            <div class="file-content-wrapper" id="file-content-wrapper">
+                <h2 class="welcome-message">Select a file from the list to view it.</h2>
+                
+        <section class="file-content-display" id="file-01-binary-search-trees-README_md" style="display: none;">
+            <h3>01-binary-search-trees/README.md</h3>
+            <pre><code># Binary search trees
+
+These programs build binary search trees and practice ways to visit or inspect the nodes.
+
+- [a-tree-cycle-check.cpp](a-tree-cycle-check.cpp) inserts values into a tree. The `hasCycle()` function currently returns `false` without checking for a cycle, so this is not a working cycle detector.
+- [level-order-and-node-queries.cpp](level-order-and-node-queries.cpp) prints nodes by level and reports leaves, parents, siblings, and subtree roots.
+- [mirror-tree.cpp](mirror-tree.cpp) swaps the left and right children recursively.
+- [sibling-nodes.cpp](sibling-nodes.cpp) finds nodes that share a parent.
+- [inorder-traversal.cpp](inorder-traversal.cpp) and [inorder-traversal-example-2.cpp](inorder-traversal-example-2.cpp) print values using inorder traversal.
+- [postorder-traversal.cpp](postorder-traversal.cpp) and [postorder-traversal-example-2.cpp](postorder-traversal-example-2.cpp) use postorder traversal.
+- [preorder-traversal.cpp](preorder-traversal.cpp) and [preorder-traversal-example-2.cpp](preorder-traversal-example-2.cpp) use preorder traversal.
+- [preorder-tree.cpp](preorder-tree.cpp) builds a tree and prints it in preorder.
+- [check-tree-balance.cpp](check-tree-balance.cpp) checks height balance; it does not rebalance the tree.
+- [print-leaf-nodes.cpp](print-leaf-nodes.cpp) prints nodes that have no children.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-a-tree-cycle-check_cpp" style="display: none;">
+            <h3>01-binary-search-trees/a-tree-cycle-check.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+
+    node(int num) {
+        data = num;
+        left = right = NULL;
+    }
+};
+
+class tree {
+    node* root;
+
+public:
+    tree() {
+        root = NULL;
+    }
+
+    void enternode(int val) {
+        root = insert(root, val);
+    }
+
+    node* insert(node* temp, int val) {
+        if (temp == NULL)
+            return new node(val);
+        if (val &lt; temp-&gt;data)
+            temp-&gt;left = insert(temp-&gt;left, val);
+        else
+            temp-&gt;right = insert(temp-&gt;right, val);
+        return temp;
+    }
+
+    bool hasCycle() {
+        return false; // No way to detect cycles without tracking visited pointers
+    }
+};
+
+int main() {
+    tree t;
+    int n, val;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; val;
+        t.enternode(val);
+    }
+
+    if (t.hasCycle())
+        cout &lt;&lt; &quot;Cycle detected in the tree.&quot; &lt;&lt; endl;
+    else
+        cout &lt;&lt; &quot;No cycle found. The tree is safe.&quot; &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-check-tree-balance_cpp" style="display: none;">
+            <h3>01-binary-search-trees/check-tree-balance.cpp</h3>
+            <pre><code>// Wheather a tree is balanced
+#include&lt;iostream&gt;
+#include&lt;cmath&gt;
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+
+    node(int num) {
+        data = num;
+        left = right = NULL;
+    }
+};
+
+class tree {
+    node* root;
+
+public:
+    tree() {
+        root = NULL;
+    }
+
+    void enternode(int val) {
+        root = insert(root, val);
+    }
+
+    node* insert(node* temp, int val) {
+        if (temp == NULL)
+            return new node(val);
+        if (val &lt; temp-&gt;data)
+            temp-&gt;left = insert(temp-&gt;left, val);
+        else
+            temp-&gt;right = insert(temp-&gt;right, val);
+        return temp;
+    }
+
+    int checkHeight(node* temp, bool&amp; isBalanced) {
+        if (temp == NULL)
+            return 0;
+
+        int leftHeight = checkHeight(temp-&gt;left, isBalanced);
+        int rightHeight = checkHeight(temp-&gt;right, isBalanced);
+
+        if (abs(leftHeight - rightHeight) &gt; 1)
+            isBalanced = false;
+
+        return max(leftHeight, rightHeight) + 1;
+    }
+
+    bool isTreeBalanced() {
+        bool isBalanced = true;
+        checkHeight(root, isBalanced);
+        return isBalanced;
+    }
+
+    void inorder(node* temp) {
+        if (temp == NULL)
+            return;
+        inorder(temp-&gt;left);
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        inorder(temp-&gt;right);
+    }
+
+    void display() {
+        cout &lt;&lt; &quot;Inorder Traversal: &quot;;
+        inorder(root);
+        cout &lt;&lt; endl;
+    }
+};
+
+int main() {
+    tree t;
+    int n, val;
+    cout&lt;&lt;&quot;Enter Number of Node you wnat to enter:&quot;;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; val;
+        t.enternode(val);
+    }
+
+    t.display();
+
+    if (t.isTreeBalanced())
+        cout &lt;&lt; &quot;The tree is balanced.&quot; &lt;&lt; endl;
+    else
+        cout &lt;&lt; &quot;The tree is NOT balanced.&quot; &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-inorder-traversal-example-2_cpp" style="display: none;">
+            <h3>01-binary-search-trees/inorder-traversal-example-2.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d){
+            r-&gt;left = insert(r-&gt;left, v);
+        }
+        else if (v &gt; r-&gt;d){
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void in_o(node* r) {
+        if (r == NULL) return;
+        in_o(r-&gt;left);
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        in_o(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Inorder traversal: &quot;;
+    c.in_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-inorder-traversal_cpp" style="display: none;">
+            <h3>01-binary-search-trees/inorder-traversal.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d){
+            r-&gt;left = insert(r-&gt;left, v);
+        }
+        else if (v &gt; r-&gt;d){
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void in_o(node* r) {
+        if (r == NULL) return;
+        in_o(r-&gt;left);
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        in_o(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Inorder traversal: &quot;;
+    c.in_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-level-order-and-node-queries_cpp" style="display: none;">
+            <h3>01-binary-search-trees/level-order-and-node-queries.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+#include&lt;queue&gt;
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    node(int d) {
+        data = d;
+        left = NULL;
+        right = NULL;
+    }
+};
+
+class tree {
+    int a[100]; // increased array size for more flexibility
+    int i = 0, c = 0;
+
+public:
+    node* insert(node* root, int val) {
+        if (root == NULL) {
+            return new node(val);
+        }
+        if (val &lt; root-&gt;data) {
+            root-&gt;left = insert(root-&gt;left, val);
+        } else {
+            root-&gt;right = insert(root-&gt;right, val);
+        }
+        return root;
+    }
+
+    void display_level(node* root) {
+        queue&lt;node*&gt; q;
+        int l = 0;
+        if (root == NULL) return;
+
+        q.push(root);
+        q.push(NULL);
+
+        while (!q.empty()) {
+            node* curr = q.front();
+            q.pop();
+            if (curr == NULL) {
+                if (!q.empty()) {
+                    cout &lt;&lt; endl;
+                    q.push(NULL);
+                    l++;
+                    continue;
+                } else {
+                    l++;
+                    break;
+                }
+            }
+            cout &lt;&lt; curr-&gt;data &lt;&lt; &quot; &quot;;
+            if (curr-&gt;left) q.push(curr-&gt;left);
+            if (curr-&gt;right) q.push(curr-&gt;right);
+        }
+        cout &lt;&lt; &quot;\n\nHeight of tree is: &quot; &lt;&lt; l &lt;&lt; endl;
+    }
+
+    void cout_leafs(node* root) {
+        if (root == NULL) return;
+        if (root-&gt;left == NULL &amp;&amp; root-&gt;right == NULL) {
+            a[i++] = root-&gt;data;
+            c++;
+        }
+        cout_leafs(root-&gt;left);
+        cout_leafs(root-&gt;right);
+    }
+
+    void display_leafs() {
+        cout &lt;&lt; &quot;\nTotal leaf nodes: &quot; &lt;&lt; c &lt;&lt; endl;
+        cout &lt;&lt; &quot;Leaf nodes: &quot;;
+        for (int j = 0; j &lt; i; j++) {
+            cout &lt;&lt; a[j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+        i = c = 0;
+    }
+
+    void count_parents(node* root) {
+        if (root == NULL) return;
+        if (root-&gt;left != NULL || root-&gt;right != NULL) {
+            a[i++] = root-&gt;data;
+            c++;
+        }
+        count_parents(root-&gt;left);
+        count_parents(root-&gt;right);
+    }
+
+    void display_parents() {
+        cout &lt;&lt; &quot;\nTotal parent nodes: &quot; &lt;&lt; c &lt;&lt; endl;
+        cout &lt;&lt; &quot;Parent nodes: &quot;;
+        for (int j = 0; j &lt; i; j++) {
+            cout &lt;&lt; a[j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+        i = c = 0;
+    }
+
+    void siblings(node* root) {
+        if (root == NULL) return;
+        if (root-&gt;left != NULL || root-&gt;right != NULL) {
+            cout &lt;&lt; &quot;\nParent: &quot; &lt;&lt; root-&gt;data &lt;&lt; &quot; =&gt; Children: &quot;;
+            if (root-&gt;left) cout &lt;&lt; root-&gt;left-&gt;data &lt;&lt; &quot; &quot;;
+            if (root-&gt;right) cout &lt;&lt; root-&gt;right-&gt;data &lt;&lt; &quot; &quot;;
+        }
+        siblings(root-&gt;left);
+        siblings(root-&gt;right);
+    }
+
+    void count_sub_trees(node* root) {
+        static int s = -1;
+        if (root == NULL) return;
+        if (s != -1) {
+            a[i++] = root-&gt;data;
+            c++;
+        }
+        s++;
+        count_sub_trees(root-&gt;left);
+        count_sub_trees(root-&gt;right);
+    }
+
+    void display_sub_trees() {
+        cout &lt;&lt; &quot;\nTotal subtrees (excluding root): &quot; &lt;&lt; c &lt;&lt; endl;
+        cout &lt;&lt; &quot;Subtree roots: &quot;;
+        for (int j = 0; j &lt; i; j++) {
+            cout &lt;&lt; a[j] &lt;&lt; &quot; &quot;;
+        }
+        cout &lt;&lt; endl;
+        i = c = 0;
+    }
+};
+
+int main() {
+    tree t;
+    node* root = NULL;
+    int n, val;
+
+    cout &lt;&lt; &quot;Enter number of nodes to insert in BST: &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; n &lt;&lt; &quot; integers:\n&quot;;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; val;
+        root = t.insert(root, val);
+    }
+
+    cout &lt;&lt; &quot;\nLevel Order Traversal:\n&quot;;
+    t.display_level(root);
+
+    t.cout_leafs(root);
+    t.display_leafs();
+
+    t.count_parents(root);
+    t.display_parents();
+
+    t.siblings(root);
+
+    t.count_sub_trees(root);
+    t.display_sub_trees();
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-mirror-tree_cpp" style="display: none;">
+            <h3>01-binary-search-trees/mirror-tree.cpp</h3>
+            <pre><code>//Mirror of tree 
+#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    node* right;
+    int data;
+    node* left;
+
+    node(int num) {
+        data = num;
+        right = left = NULL;
+    }
+};
+
+class tree {
+    node* root;
+public:
+    tree() {
+        root = NULL;
+    }
+
+    void enternode(int num) {
+        root = insert(root, num);
+    }
+
+    node* insert(node* temp, int num) {
+        if (temp == NULL)
+            return new node(num);
+        if (num &lt; temp-&gt;data)
+            temp-&gt;left = insert(temp-&gt;left, num);
+        else
+            temp-&gt;right = insert(temp-&gt;right, num);
+        return temp;
+    }
+
+    void mirrorTree() {
+        mirror(root);
+    }
+
+    void mirror(node* temp) {
+        if (temp == NULL)
+            return;
+        node* swap = temp-&gt;left;
+        temp-&gt;left = temp-&gt;right;
+        temp-&gt;right = swap;
+
+        mirror(temp-&gt;left);
+        mirror(temp-&gt;right);
+    }
+
+    void inorder(node* temp) {
+        if (temp == NULL)
+            return;
+        inorder(temp-&gt;left);
+        cout &lt;&lt; temp-&gt;data &lt;&lt; &quot; &quot;;
+        inorder(temp-&gt;right);
+    }
+
+    void display() {
+        cout &lt;&lt; &quot;Inorder Traversal: &quot;;
+        inorder(root);
+        cout &lt;&lt; endl;
+    }
+};
+
+int main() {
+    tree t;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many nodes do you want to enter? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; n &lt;&lt; &quot; values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        t.enternode(val);
+    }
+
+    cout &lt;&lt; &quot;\nOriginal Tree: &quot;;
+    t.display();
+
+    t.mirrorTree();
+
+    cout &lt;&lt; &quot;Mirrored Tree: &quot;;
+    t.display();
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-postorder-traversal-example-2_cpp" style="display: none;">
+            <h3>01-binary-search-trees/postorder-traversal-example-2.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+        	return new node(v);
+		}
+        if (v &lt; r-&gt;d){
+        	r-&gt;left = insert(r-&gt;left, v);
+		}
+        else if (v &gt; r-&gt;d){
+        	r-&gt;right = insert(r-&gt;right, v);
+		}
+        return r;
+    }
+
+    void post_o(node* r) {
+        if (r == NULL) return;
+        post_o(r-&gt;left);
+        post_o(r-&gt;right);
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Postorder traversal: &quot;;
+    c.post_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-postorder-traversal_cpp" style="display: none;">
+            <h3>01-binary-search-trees/postorder-traversal.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+        	return new node(v);
+		}
+        if (v &lt; r-&gt;d){
+        	r-&gt;left = insert(r-&gt;left, v);
+		}
+        else if (v &gt; r-&gt;d){
+        	r-&gt;right = insert(r-&gt;right, v);
+		}
+        return r;
+    }
+
+    void post_o(node* r) {
+        if (r == NULL) return;
+        post_o(r-&gt;left);
+        post_o(r-&gt;right);
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Postorder traversal: &quot;;
+    c.post_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-preorder-traversal-example-2_cpp" style="display: none;">
+            <h3>01-binary-search-trees/preorder-traversal-example-2.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d){
+            r-&gt;left = insert(r-&gt;left, v);
+        }
+        else if (v &gt; r-&gt;d){
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void pre_o(node* r) {
+        if (r == NULL) return;
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        pre_o(r-&gt;left);
+        pre_o(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Preorder traversal: &quot;;
+    c.pre_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-preorder-traversal_cpp" style="display: none;">
+            <h3>01-binary-search-trees/preorder-traversal.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d){
+            r-&gt;left = insert(r-&gt;left, v);
+        }
+        else if (v &gt; r-&gt;d){
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void pre_o(node* r) {
+        if (r == NULL) return;
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        pre_o(r-&gt;left);
+        pre_o(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Preorder traversal: &quot;;
+    c.pre_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-preorder-tree_cpp" style="display: none;">
+            <h3>01-binary-search-trees/preorder-tree.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int d) {
+        this-&gt;d = d;
+        left = right = NULL;
+    }
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL) {
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d) {
+            r-&gt;left = insert(r-&gt;left, v);
+        } else if (v &gt; r-&gt;d) {
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void pre_o(node* r) {
+        if (r == NULL) return;
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        pre_o(r-&gt;left);
+        pre_o(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values do you want to insert? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; n &lt;&lt; &quot; integer values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Preorder traversal of the tree: &quot;;
+    c.pre_o(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-print-leaf-nodes_cpp" style="display: none;">
+            <h3>01-binary-search-trees/print-leaf-nodes.cpp</h3>
+            <pre><code>//write a cpp program that prints only the leaf nodes in a tree
+#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL) {
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d) {
+            r-&gt;left = insert(r-&gt;left, v);
+        } else if (v &gt; r-&gt;d) {
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void printLeafNodes(node* r) {
+        if (r == NULL) return;
+
+        if (r-&gt;left == NULL &amp;&amp; r-&gt;right == NULL) {
+            cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+            return;
+        }
+
+        printLeafNodes(r-&gt;left);
+        printLeafNodes(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Leaf nodes: &quot;;
+    c.printLeafNodes(r);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-01-binary-search-trees-sibling-nodes_cpp" style="display: none;">
+            <h3>01-binary-search-trees/sibling-nodes.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int d;
+    node *left, *right;
+    node(int val) : d(val), left(NULL), right(NULL) {}
+};
+
+class B {
+public:
+    node* insert(node* r, int v) {
+        if (r == NULL){
+            return new node(v);
+        }
+        if (v &lt; r-&gt;d){
+            r-&gt;left = insert(r-&gt;left, v);
+        }
+        else if (v &gt; r-&gt;d){
+            r-&gt;right = insert(r-&gt;right, v);
+        }
+        return r;
+    }
+
+    void in_o(node* r) {
+        if (r == NULL) return;
+        in_o(r-&gt;left);
+        cout &lt;&lt; r-&gt;d &lt;&lt; &quot; &quot;;
+        in_o(r-&gt;right);
+    }
+
+    void printSiblings(node* r) {
+        if (r == NULL) return;
+
+        // If both left and right child exist, they are siblings
+        if (r-&gt;left != NULL &amp;&amp; r-&gt;right != NULL) {
+            cout &lt;&lt; &quot;Siblings: &quot; &lt;&lt; r-&gt;left-&gt;d &lt;&lt; &quot; and &quot; &lt;&lt; r-&gt;right-&gt;d &lt;&lt; endl;
+        }
+
+        // Recurse on left and right subtree
+        printSiblings(r-&gt;left);
+        printSiblings(r-&gt;right);
+    }
+};
+
+int main() {
+    node *r = NULL;
+    B c;
+    int n, val;
+
+    cout &lt;&lt; &quot;How many values? &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        r = c.insert(r, val);
+    }
+
+    cout &lt;&lt; &quot;Inorder traversal: &quot;;
+    c.in_o(r);
+    cout &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;\nSibling nodes in the tree:\n&quot;;
+    c.printSiblings(r);
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-02-avl-trees-README_md" style="display: none;">
+            <h3>02-avl-trees/README.md</h3>
+            <pre><code># AVL trees
+
+Both programs insert values into an AVL tree and use rotations when the tree becomes unbalanced. One prints an inorder traversal; the other prints preorder.
+
+- [avl-tree-inorder.cpp](avl-tree-inorder.cpp)
+- [avl-tree-preorder.cpp](avl-tree-preorder.cpp)
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-02-avl-trees-avl-tree-inorder_cpp" style="display: none;">
+            <h3>02-avl-trees/avl-tree-inorder.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class node {
+public:
+    int data;
+    node* left;
+    node* right;
+    int height;
+
+    node(int val) {
+        data = val;
+        left = right = NULL;
+        height = 1;
+    }
+};
+
+int getHeight(node* n) {
+    return n ? n-&gt;height : 0;
+}
+
+int getBalance(node* n) {
+    return n ? getHeight(n-&gt;left) - getHeight(n-&gt;right) : 0;
+}
+
+int max(int a, int b) {
+    return (a &gt; b) ? a : b;
+}
+
+node* rotateRight(node* y) {
+    node* x = y-&gt;left;
+    node* T2 = x-&gt;right;
+    x-&gt;right = y;
+    y-&gt;left = T2;
+    y-&gt;height = max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    x-&gt;height = max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    return x;
+}
+
+node* rotateLeft(node* x) {
+    node* y = x-&gt;right;
+    node* T2 = y-&gt;left;
+    y-&gt;left = x;
+    x-&gt;right = T2;
+    x-&gt;height = max(getHeight(x-&gt;left), getHeight(x-&gt;right)) + 1;
+    y-&gt;height = max(getHeight(y-&gt;left), getHeight(y-&gt;right)) + 1;
+    return y;
+}
+
+node* insert(node* root, int key) {
+    if (root == NULL)
+        return new node(key);
+
+    if (key &lt; root-&gt;data)
+        root-&gt;left = insert(root-&gt;left, key);
+    else if (key &gt; root-&gt;data)
+        root-&gt;right = insert(root-&gt;right, key);
+    else
+        return root;
+
+    root-&gt;height = 1 + max(getHeight(root-&gt;left), getHeight(root-&gt;right));
+    int balance = getBalance(root);
+
+    if (balance &gt; 1 &amp;&amp; key &lt; root-&gt;left-&gt;data)
+        return rotateRight(root);
+
+    if (balance &lt; -1 &amp;&amp; key &gt; root-&gt;right-&gt;data)
+        return rotateLeft(root);
+
+    if (balance &gt; 1 &amp;&amp; key &gt; root-&gt;left-&gt;data) {
+        root-&gt;left = rotateLeft(root-&gt;left);
+        return rotateRight(root);
+    }
+
+    if (balance &lt; -1 &amp;&amp; key &lt; root-&gt;right-&gt;data) {
+        root-&gt;right = rotateRight(root-&gt;right);
+        return rotateLeft(root);
+    }
+
+    return root;
+}
+
+void inorder(node* root) {
+    if (root) {
+        inorder(root-&gt;left);
+        cout &lt;&lt; root-&gt;data &lt;&lt; &quot; &quot;;
+        inorder(root-&gt;right);
+    }
+}
+
+int main() {
+    node* root = NULL;
+    int n, val;
+    cin &gt;&gt; n;
+    for (int i = 0; i &lt; n; ++i) {
+        cin &gt;&gt; val;
+        root = insert(root, val);
+    }
+
+    cout &lt;&lt; &quot;Inorder Traversal of AVL Tree: &quot;;
+    inorder(root);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-02-avl-trees-avl-tree-preorder_cpp" style="display: none;">
+            <h3>02-avl-trees/avl-tree-preorder.cpp</h3>
+            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+class Node {
+public:
+    int key, height;
+    Node* left;
+    Node* right;
+
+    Node(int val) {
+        key = val;
+        height = 1;
+        left = right = NULL;
+    }
+};
+
+int height(Node* n) {
+    return n ? n-&gt;height : 0;
+}
+
+int getBalance(Node* n) {
+    return n ? height(n-&gt;left) - height(n-&gt;right) : 0;
+}
+
+Node* rightRotate(Node* y) {
+    Node* x = y-&gt;left;
+    Node* T2 = x-&gt;right;
+
+    x-&gt;right = y;
+    y-&gt;left = T2;
+
+    y-&gt;height = max(height(y-&gt;left), height(y-&gt;right)) + 1;
+    x-&gt;height = max(height(x-&gt;left), height(x-&gt;right)) + 1;
+
+    return x;
+}
+
+Node* leftRotate(Node* x) {
+    Node* y = x-&gt;right;
+    Node* T2 = y-&gt;left;
+
+    y-&gt;left = x;
+    x-&gt;right = T2;
+
+    x-&gt;height = max(height(x-&gt;left), height(x-&gt;right)) + 1;
+    y-&gt;height = max(height(y-&gt;left), height(y-&gt;right)) + 1;
+
+    return y;
+}
+
+Node* insert(Node* node, int key) {
+    if (!node) return new Node(key);
+
+    if (key &lt; node-&gt;key)
+        node-&gt;left = insert(node-&gt;left, key);
+    else if (key &gt; node-&gt;key)
+        node-&gt;right = insert(node-&gt;right, key);
+    else
+        return node;
+
+    node-&gt;height = 1 + max(height(node-&gt;left), height(node-&gt;right));
+    int balance = getBalance(node);
+
+    if (balance &gt; 1 &amp;&amp; key &lt; node-&gt;left-&gt;key)
+        return rightRotate(node);
+
+    if (balance &lt; -1 &amp;&amp; key &gt; node-&gt;right-&gt;key)
+        return leftRotate(node);
+
+    if (balance &gt; 1 &amp;&amp; key &gt; node-&gt;left-&gt;key) {
+        node-&gt;left = leftRotate(node-&gt;left);
+        return rightRotate(node);
+    }
+
+    if (balance &lt; -1 &amp;&amp; key &lt; node-&gt;right-&gt;key) {
+        node-&gt;right = rightRotate(node-&gt;right);
+        return leftRotate(node);
+    }
+
+    return node;
+}
+
+void preorder(Node* root) {
+    if (root) {
+        cout &lt;&lt; root-&gt;key &lt;&lt; &quot; &quot;;
+        preorder(root-&gt;left);
+        preorder(root-&gt;right);
+    }
+}
+
+int main() {
+    Node* root = NULL;
+    int n, val;
+
+    cout &lt;&lt; &quot;Enter number of nodes to insert: &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; n &lt;&lt; &quot; values:\n&quot;;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; val;
+        root = insert(root, val);
+    }
+
+    cout &lt;&lt; &quot;Preorder traversal of AVL tree:\n&quot;;
+    preorder(root);
+    cout &lt;&lt; endl;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-03-linked-lists-README_md" style="display: none;">
+            <h3>03-linked-lists/README.md</h3>
+            <pre><code># Linked lists
+
+These examples use linked nodes to store and move through information.
+
+- [account-transaction-records.cpp](account-transaction-records.cpp) stores accounts and transaction records in linked lists.
+- [song-playlist.cpp](song-playlist.cpp) uses a doubly linked list to move between songs.
+- [browser-history.cpp](browser-history.cpp) moves forward and backward through a list of website names.
+- [singly-linked-list.py](singly-linked-list.py) adds, inserts, deletes, and displays values in a singly linked list.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-03-linked-lists-account-transaction-records_cpp" style="display: none;">
+            <h3>03-linked-lists/account-transaction-records.cpp</h3>
+            <pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+struct transation {
+    int transaction_ID = 1;
+    string type;
+    int purchase;
+    transation* next;
+    transation* prv;
+};
+
+struct accounts {
+    int acc_id = 1;
+    string user_name;
+    accounts* next;
+    transation* head;
+    accounts* prv;
+};
+
+class tran {
+public:
+    void insertinlink(transation*&amp; head) {
+        char ck;
+        do {
+            int purchase;
+            string tp;
+
+            cout &lt;&lt; &quot;\nEnter Purchase: &quot;;
+            cin &gt;&gt; purchase;
+            cin.ignore(); 
+
+            cout &lt;&lt; &quot;\nEnter Note: &quot;;
+            getline(cin, tp);
+
+            transation* node = new transation();
+            node-&gt;purchase = purchase;
+            node-&gt;type = tp;
+
+            if (head) {
+                transation* temp = head;
+                while (temp-&gt;next) {
+                    temp = temp-&gt;next;
+                }
+                node-&gt;transaction_ID = temp-&gt;transaction_ID + 1;
+                temp-&gt;next = node;
+                node-&gt;prv = temp;
+            } else {
+                head = node;
+            }
+
+            node-&gt;next = NULL;
+
+            cout &lt;&lt; &quot;\nPress &#x27;Y&#x27; to enter another transaction: &quot;;
+            cin &gt;&gt; ck;
+        } while (ck == &#x27;Y&#x27; || ck == &#x27;y&#x27;);
+    }
+
+    void searchtran(transation* head) {
+        transation* temp = head;
+        while (temp) {
+            cout &lt;&lt; &quot;\nTransaction ID: &quot; &lt;&lt; temp-&gt;transaction_ID &lt;&lt; endl;
+            cout &lt;&lt; &quot;Purchase: &quot; &lt;&lt; temp-&gt;purchase &lt;&lt; endl;
+            cout &lt;&lt; &quot;Note: &quot; &lt;&lt; temp-&gt;type &lt;&lt; endl;
+            temp = temp-&gt;next;
+        }
+    }
+
+    void totaltransations(transation* head) {
+        transation* temp = head;
+        int sum = 0;
+        while (temp) {
+            sum += temp-&gt;purchase;
+            temp = temp-&gt;next;
+        }
+        cout &lt;&lt; &quot;\nThe Total amount you have spent is: &quot; &lt;&lt; sum &lt;&lt; &quot; Rs\n&quot;;
+    }
+
+    void display(transation* head) {
+        transation* temp = head;
+        while (temp) {
+            cout &lt;&lt; &quot;\nTransaction ID: &quot; &lt;&lt; temp-&gt;transaction_ID &lt;&lt; endl;
+            cout &lt;&lt; &quot;Purchase: &quot; &lt;&lt; temp-&gt;purchase &lt;&lt; endl;
+            cout &lt;&lt; &quot;Note: &quot; &lt;&lt; temp-&gt;type &lt;&lt; endl;
+            temp = temp-&gt;next;
+        }
+    }
+};
+
+class record {
+    accounts* acc_head;
+    int count = 0;
+
+public:
+    record() {
+        acc_head = NULL;
+    }
+
+    void newaccount() {
+        string name;
+        cout &lt;&lt; &quot;\nEnter Name: &quot;;
+        cin.ignore();
+        getline(cin, name);
+
+        accounts* acc = new accounts();
+        count++;
+
+        if (acc_head) {
+            accounts* temp = acc_head;
+            while (temp-&gt;next) {
+                temp = temp-&gt;next;
+            }
+            acc-&gt;acc_id = temp-&gt;acc_id + 1;
+            temp-&gt;next = acc;
+            acc-&gt;prv = temp;
+        } else {
+            acc_head = acc;
+            acc-&gt;prv = NULL;
+        }
+
+        cout &lt;&lt; &quot;\nYour Account ID is: &quot; &lt;&lt; acc-&gt;acc_id &lt;&lt; endl;
+        acc-&gt;user_name = name;
+        acc-&gt;next = NULL;
+        acc-&gt;head = NULL;
+
+        tran chain;
+        chain.insertinlink(acc-&gt;head);
+    }
+
+    void searchaccount() {
+        int acid, attempts = 3;
+        string pn;
+
+        while (attempts &gt; 0) {
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Name: &quot;;
+            cin.ignore();
+            getline(cin, pn);
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Account ID: &quot;;
+            cin &gt;&gt; acid;
+
+            accounts* temp = acc_head;
+            while (temp) {
+                if (pn == temp-&gt;user_name &amp;&amp; acid == temp-&gt;acc_id) {
+                    cout &lt;&lt; &quot;\n \t Transaction records\n\n&quot;;
+                    tran temp1;
+                    temp1.searchtran(temp-&gt;head);
+                    return;
+                }
+                temp = temp-&gt;next;
+            }
+
+            attempts--;
+            if (attempts &gt; 0) {
+                cout &lt;&lt; endl &lt;&lt; &quot;Invalid ID or Name! Attempts left: &quot; &lt;&lt; attempts &lt;&lt; endl;
+            } else {
+                cout &lt;&lt; endl &lt;&lt; &quot;Access limit reached! Returning to menu...&quot; &lt;&lt; endl;
+            }
+        }
+    }
+
+    void addtoaccount() {
+        int acid, attempts = 3;
+        string pn;
+
+        while (attempts &gt; 0) {
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Name: &quot;;
+            cin.ignore();
+            getline(cin, pn);
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Account ID: &quot;;
+            cin &gt;&gt; acid;
+
+            accounts* temp = acc_head;
+            while (temp) {
+                if (pn == temp-&gt;user_name &amp;&amp; acid == temp-&gt;acc_id) {
+                    tran temp1;
+                    temp1.insertinlink(temp-&gt;head);
+                    return;
+                }
+                temp = temp-&gt;next;
+            }
+
+            attempts--;
+            if (attempts &gt; 0) {
+                cout &lt;&lt; endl &lt;&lt; &quot;Invalid ID or Name! Attempts left: &quot; &lt;&lt; attempts &lt;&lt; endl;
+            } else {
+                cout &lt;&lt; endl &lt;&lt; &quot;Access limit reached! Returning to menu...&quot; &lt;&lt; endl;
+            }
+        }
+    }
+
+    int totalacc() {
+        return count;
+    }
+
+    void totalexpense() {
+        int acid, attempts = 3;
+        string pn;
+
+        while (attempts &gt; 0) {
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Name: &quot;;
+            cin.ignore();
+            getline(cin, pn);
+            cout &lt;&lt; endl &lt;&lt; &quot;Enter Account ID: &quot;;
+            cin &gt;&gt; acid;
+
+            accounts* temp = acc_head;
+            while (temp) {
+                if (pn == temp-&gt;user_name &amp;&amp; acid == temp-&gt;acc_id) {
+                    tran temp1;
+                    temp1.totaltransations(temp-&gt;head);
+                    return;
+                }
+                temp = temp-&gt;next;
+            }
+
+            attempts--;
+            if (attempts &gt; 0) {
+                cout &lt;&lt; endl &lt;&lt; &quot;Invalid ID or Name! Attempts left: &quot; &lt;&lt; attempts &lt;&lt; endl;
+            } else {
+                cout &lt;&lt; endl &lt;&lt; &quot;Access limit reached! Returning to menu...&quot; &lt;&lt; endl;
+            }
+        }
+    }
+
+    void display() {
+        accounts* temp = acc_head;
+        while (temp) {
+            cout &lt;&lt; &quot;\nName: &quot; &lt;&lt; temp-&gt;user_name &lt;&lt; endl;
+            cout &lt;&lt; &quot;Account ID: &quot; &lt;&lt; temp-&gt;acc_id &lt;&lt; endl;
+            char ans;
+            cout &lt;&lt; &quot;\nPress &#x27;Y&#x27; if you want transaction details: &quot;;
+            cin &gt;&gt; ans;
+            if (ans == &#x27;y&#x27; || ans == &#x27;Y&#x27;) {
+                tran temp1;
+                temp1.display(temp-&gt;head);
+            }
+            temp = temp-&gt;next;
+        }
+    }
+};
+
+int main() {
+    int a, pass = 1234, p;
+    record m;
+
+    while (true) {
+        cout &lt;&lt; &quot;\t\tMenu\n&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;1. New Account.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;2. Search Account.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;3. Add Transaction to Existing Account.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;4. Display Number of Accounts.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;5. Total Transactions of an Account.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;6. Display All Accounts.&quot;;
+        cout &lt;&lt; endl &lt;&lt; &quot;7. Exit.&quot;;
+
+        cout &lt;&lt; endl &lt;&lt; &quot;\nEnter choice: &quot;;
+        cin &gt;&gt; a;
+
+        switch (a) {
+            case 1: 
+				m.newaccount(); 
+				break;
+            case 2: 
+				m.searchaccount(); 
+				break;
+            case 3: 
+				m.addtoaccount(); 
+				break;
+            case 4: 
+				cout &lt;&lt; &quot;\nTotal accounts are: &quot; &lt;&lt; m.totalacc() &lt;&lt; endl; 
+				break;
+            case 5: 
+				m.totalexpense(); 
+				break;
+            case 6:
+                cout &lt;&lt; &quot;Enter Password: &quot;;
+                cin &gt;&gt; p;
+                if (pass == p) m.display();
+                else cout &lt;&lt; &quot;\nInvalid password!\n&quot;;
+                break;
+            case 7: 
+				return 0;
+            default: cout &lt;&lt; &quot;\nInvalid choice! Try again.\n&quot;;
+        }
+    }
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-03-linked-lists-browser-history_cpp" style="display: none;">
+            <h3>03-linked-lists/browser-history.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class website {
+public:
+    website* next;
+    string WebName;
+    website* prev;
+
+    website() {
+        next = NULL;
+        WebName = &quot;&quot;;
+        prev = NULL;
+    }
+};
+
+class browser {
+private:
+    website* head;
+    website* recent;
+
+public:
+    browser() {
+        head = NULL;
+        recent = NULL;
+    }
+
+    void search() {
+        website* domain = new website();
+        cout &lt;&lt; &quot;\nEnter Website you want to search: &quot;;
+        cin &gt;&gt; domain-&gt;WebName;
+        cout &lt;&lt; &quot;\n&quot; &lt;&lt; domain-&gt;WebName &lt;&lt; &quot; is essential for nowadays. \n&quot;;
+
+        if (head == NULL) {
+            domain-&gt;next = NULL;
+            domain-&gt;prev = NULL;
+            head = domain;
+            recent = domain;
+            return;
+        }
+
+        website* temp = head;
+        while (temp-&gt;next) {
+            temp = temp-&gt;next;
+        }
+        domain-&gt;prev = temp;
+        temp-&gt;next = domain;
+        recent = domain;
+    }
+
+    void history() {
+        if (recent == NULL) {
+            cout &lt;&lt; &quot;\nNo history available.\n&quot;;
+            return;
+        }
+        website* temp = recent;
+        cout &lt;&lt; &quot;\nBrowsing History:\n&quot;;
+        while (temp != NULL) {
+            cout &lt;&lt; temp-&gt;WebName &lt;&lt; &quot;\n&quot;;
+            temp = temp-&gt;prev;
+        }
+    }
+
+    void forward() {
+        if (recent == NULL || recent-&gt;next == NULL) {
+            cout &lt;&lt; &quot;\nThere is no Next Tab\n&quot;;
+            return;
+        }
+        recent = recent-&gt;next;
+        cout &lt;&lt; &quot;\nThe Next Tab: &quot; &lt;&lt; recent-&gt;WebName &lt;&lt; endl;
+    }
+
+    void previous() {
+        if (recent == NULL || recent-&gt;prev == NULL) {
+            cout &lt;&lt; &quot;\nThere is no Previous Tab\n&quot;;
+            return;
+        }
+        recent = recent-&gt;prev;
+        cout &lt;&lt; &quot;\nThe Previous Tab: &quot; &lt;&lt; recent-&gt;WebName &lt;&lt; endl;
+    }
+
+    void deletehistory() {
+        if (head == NULL) {
+            cout &lt;&lt; &quot;\nHistory is empty.\n&quot;;
+            return;
+        }
+
+        int pos;
+        cout &lt;&lt; &quot;Enter the position to delete (1-based index): &quot;;
+        cin &gt;&gt; pos;
+
+        website* temp = head;
+        int count = 1;
+
+        while (temp != NULL &amp;&amp; count &lt; pos) {
+            temp = temp-&gt;next;
+            count++;
+        }
+
+        if (temp == NULL) {
+            cout &lt;&lt; &quot;\nInvalid position.\n&quot;;
+            return;
+        }
+
+        if (temp == recent) {
+            if (temp-&gt;prev)
+                recent = temp-&gt;prev;
+            else if (temp-&gt;next)
+                recent = temp-&gt;next;
+            else
+                recent = NULL;
+        }
+
+        if (temp == head) {
+            head = temp-&gt;next;
+            if (head)
+                head-&gt;prev = NULL;
+        } else {
+            temp-&gt;prev-&gt;next = temp-&gt;next;
+        }
+
+        if (temp-&gt;next)
+            temp-&gt;next-&gt;prev = temp-&gt;prev;
+
+        cout &lt;&lt; &quot;\nDeleted: &quot; &lt;&lt; temp-&gt;WebName &lt;&lt; endl;
+        delete temp;
+    }
+};
+
+int main() {
+    browser google;
+    int n = 0;
+
+    do {
+        cout &lt;&lt; &quot;\n-----MENU-----\n&quot;;
+        cout &lt;&lt; &quot;1. Browse a Website\n&quot;;
+        cout &lt;&lt; &quot;2. Show History\n&quot;;
+        cout &lt;&lt; &quot;3. Forward Tab\n&quot;;
+        cout &lt;&lt; &quot;4. Previous Tab\n&quot;;
+        cout &lt;&lt; &quot;5. Delete History at Position\n&quot;;
+        cout &lt;&lt; &quot;6. Exit\n&quot;;
+        cout &lt;&lt; &quot;Choose Option: &quot;;
+        cin &gt;&gt; n;
+
+        switch (n) {
+            case 1:
+                google.search();
+                break;
+            case 2:
+                google.history();
+                break;
+            case 3:
+                google.forward();
+                break;
+            case 4:
+                google.previous();
+                break;
+            case 5:
+                google.deletehistory();
+                break;
+            case 6:
+                cout &lt;&lt; &quot;\nExiting browser...\n&quot;;
+                break;
+            default:
+                cout &lt;&lt; &quot;\nInvalid Choice!\n&quot;;
+                break;
+        }
+
+    } while (n != 6);
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-03-linked-lists-singly-linked-list_py" style="display: none;">
+            <h3>03-linked-lists/singly-linked-list.py</h3>
+            <pre><code>class Node:
+    &quot;&quot;&quot;
+    A class representing a node in a singly linked list.
+    &quot;&quot;&quot;
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class SinglyLinkedList:
+    &quot;&quot;&quot;
+    A class to manage a singly linked list.
+    &quot;&quot;&quot;
+    def __init__(self):
+        self.head = None
+
+    def insert_at_end(self, data):
+        new_node = Node(data)
+        if not self.head:
+            self.head = new_node
+            return
+        curr = self.head
+        while curr.next:
+            curr = curr.next
+        curr.next = new_node
+
+    def insert_at_beginning(self, data):
+        new_node = Node(data)
+        new_node.next = self.head
+        self.head = new_node
+
+    def insert_after_value(self, target, data):
+        curr = self.head
+        while curr:
+            if curr.data == target:
+                new_node = Node(data)
+                new_node.next = curr.next
+                curr.next = new_node
+                return
+            curr = curr.next
+        raise ValueError(f&quot;Value &#x27;{target}&#x27; not found.&quot;)
+
+    def delete_value(self, target):
+        if not self.head:
+            raise ValueError(&quot;List is empty.&quot;)
+
+        if self.head.data == target:
+            self.head = self.head.next
+            return
+
+        curr = self.head
+        while curr.next:
+            if curr.next.data == target:
+                curr.next = curr.next.next
+                return
+            curr = curr.next
+
+        raise ValueError(f&quot;Value &#x27;{target}&#x27; not found.&quot;)
+
+    def traverse(self):
+        elements = []
+        curr = self.head
+        while curr:
+            elements.append(curr.data)
+            curr = curr.next
+        return elements
+
+    def __str__(self):
+        return &quot; -&gt; &quot;.join(map(str, self.traverse())) + &quot; -&gt; None&quot;
+
+
+# === Main program with user interaction ===
+def main():
+    ll = SinglyLinkedList()
+
+    while True:
+        print(&quot;\n--- Singly Linked List Menu ---&quot;)
+        print(&quot;1. Insert at beginning&quot;)
+        print(&quot;2. Insert at end&quot;)
+        print(&quot;3. Insert after value&quot;)
+        print(&quot;4. Delete a value&quot;)
+        print(&quot;5. Display list&quot;)
+        print(&quot;6. Exit&quot;)
+        choice = input(&quot;Enter your choice (1-6): &quot;)
+
+        try:
+            if choice == &#x27;1&#x27;:
+                val = input(&quot;Enter value to insert at beginning: &quot;)
+                ll.insert_at_beginning(val)
+            elif choice == &#x27;2&#x27;:
+                val = input(&quot;Enter value to insert at end: &quot;)
+                ll.insert_at_end(val)
+            elif choice == &#x27;3&#x27;:
+                target = input(&quot;Enter the value after which to insert: &quot;)
+                val = input(&quot;Enter value to insert: &quot;)
+                ll.insert_after_value(target, val)
+            elif choice == &#x27;4&#x27;:
+                val = input(&quot;Enter value to delete: &quot;)
+                ll.delete_value(val)
+            elif choice == &#x27;5&#x27;:
+                print(&quot;Linked List:&quot;)
+                print(ll)
+            elif choice == &#x27;6&#x27;:
+                print(&quot;Exiting program.&quot;)
+                break
+            else:
+                print(&quot;Invalid choice. Please enter a number between 1 and 6.&quot;)
+        except ValueError as ve:
+            print(f&quot;Error: {ve}&quot;)
+
+if __name__ == &quot;__main__&quot;:
+    main()
+1
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-03-linked-lists-song-playlist_cpp" style="display: none;">
+            <h3>03-linked-lists/song-playlist.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+class Song{
+	public:
+		string name;
+		string title;
+		Song* prev;
+		Song* next;
+		
+		Song(){
+			name=&quot;&quot;;
+			title=&quot;&quot;;
+			prev=NULL;
+			next=NULL;
+		}	
+};
+class playlist{
+	Song* head;
+	Song* current;
+	int count=0;
+	public:
+		playlist(){
+			head=NULL;
+			current=NULL;
+		}
+		void addsong(){
+			Song* newsong=new Song();
+			
+			cout&lt;&lt;&quot;Enter Song Name:&quot;;
+			cin&gt;&gt;newsong-&gt;name;
+			cout&lt;&lt;&quot;Enter Song Title:&quot;;
+			cin&gt;&gt;newsong-&gt;title;
+			if(head==NULL){
+				head=newsong;
+				newsong-&gt;next=NULL;
+				newsong-&gt;prev=NULL;
+				current=newsong;
+				count++;
+				return;
+			}else{
+				Song* temp=head;
+				while(temp-&gt;next){
+					temp=temp-&gt;next;
+				}
+				newsong-&gt;prev=temp;
+				temp-&gt;next=newsong;
+			}
+			current=newsong;
+			count++;
+		}
+		
+		void playcurrentsong(){
+			if(count&lt;1){
+				cout&lt;&lt;&quot;\n No Song is currently in the list.\n&quot;;
+				return;
+			}
+			cout&lt;&lt;&quot;\nPlaying Song...........\n&quot;;
+			cout&lt;&lt;&quot;Name: &quot;&lt;&lt;current-&gt;name&lt;&lt;endl;
+			cout&lt;&lt;&quot;Title: &quot;&lt;&lt;current-&gt;title&lt;&lt;endl;
+			
+		}
+		void nextsong(){
+			if(current-&gt;next==NULL){
+				cout&lt;&lt;&quot;\nThere is no Next Song\n&quot;;
+				return;
+			}
+			cout&lt;&lt;&quot;\nMoving to the next Song.\n&quot;;
+			current=current-&gt;next;
+			
+		}
+		void prevsong(){
+			if(current-&gt;prev==NULL){
+				cout&lt;&lt;&quot;\nThere is no Previous Song\n&quot;;
+				return;
+			}
+			cout&lt;&lt;&quot;\nMoving to the previous Song.\n&quot;;
+			current=current-&gt;prev;
+		}
+};
+int main(){
+	playlist youtube;
+	int n;
+	menu:
+	cout&lt;&lt;&quot;\n----Menu----\n&quot;;
+	cout&lt;&lt;&quot;\n1. Add a Song&quot;;
+	cout&lt;&lt;&quot;\n2. Play Current Song&quot;;
+	cout&lt;&lt;&quot;\n3. Previous Song&quot;;
+	cout&lt;&lt;&quot;\n4. Next Song&quot;;
+	cout&lt;&lt;&quot;\n5. Exit App&quot;;
+	
+	cout&lt;&lt;&quot;\nEnter your choice:&quot;;
+	cin&gt;&gt;n;
+	
+	switch(n){
+		case 1:{
+			youtube.addsong();
+			goto menu;
+		}
+		case 2:{
+			youtube.playcurrentsong();
+			goto menu;
+		}
+		case 3:{
+			youtube.prevsong();
+			goto menu;
+		}
+		case 4:{
+			youtube.nextsong();
+			goto menu;
+		}
+		case 5:{
+			cout&lt;&lt;&quot;\nThe Application is Closing..............\n&quot;;
+			break;
+		}
+		default:{
+			cout&lt;&lt;&quot;\n Invalid Enter! Chose form the menu.\n&quot;;
+			goto menu; 
+		}
+	}
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-04-queues-and-priority-queues-README_md" style="display: none;">
+            <h3>04-queues-and-priority-queues/README.md</h3>
+            <pre><code># Queues and priority queues
+
+- [simple-queue.cpp](simple-queue.cpp) adds people at the end of a linked list and serves them from the front.
+- [age-priority-queue.cpp](age-priority-queue.cpp) keeps the oldest person first and serves from the front.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-04-queues-and-priority-queues-age-priority-queue_cpp" style="display: none;">
+            <h3>04-queues-and-priority-queues/age-priority-queue.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+struct Queue {
+    string name;
+    int age;
+    char gender;
+};
+
+struct Node {
+    Queue data;
+    Node* next;
+};
+
+class linkedlist {
+private:
+    Node* head;
+
+public:
+    linkedlist() {
+        head = NULL;
+    }
+
+    void insertQueue() {
+        Node* point = new Node();
+        cout &lt;&lt; &quot;\nEnter Name: &quot;;
+        cin &gt;&gt; point-&gt;data.name;
+        cout &lt;&lt; &quot;\nEnter Age: &quot;;
+        cin &gt;&gt; point-&gt;data.age;
+        cout &lt;&lt; &quot;\nEnter Gender (M/F): &quot;;
+        cin &gt;&gt; point-&gt;data.gender;
+        point-&gt;next = NULL;
+
+        
+        if (head == NULL || point-&gt;data.age &gt; head-&gt;data.age) {
+            point-&gt;next = head;
+            head = point;
+        } else {
+            Node* temp = head;
+            while (temp-&gt;next != NULL &amp;&amp; temp-&gt;next-&gt;data.age &gt;= point-&gt;data.age) {
+                temp = temp-&gt;next;
+            }
+            point-&gt;next = temp-&gt;next;
+            temp-&gt;next = point;
+        }
+    }
+
+    void serveQueue() {
+        if (head == NULL) {
+            cout &lt;&lt; &quot;\nThe Queue is Empty!\n&quot;;
+            return;
+        }
+        
+        cout &lt;&lt; &quot;Processing...... \n&quot; &lt;&lt; head-&gt;data.name &lt;&lt; &quot; has been served\n&quot;;
+        switch (head-&gt;data.gender) {
+            case &#x27;M&#x27;: case &#x27;m&#x27;:
+                cout &lt;&lt; &quot;Because he is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                break;
+            case &#x27;F&#x27;: case &#x27;f&#x27;:
+                cout &lt;&lt; &quot;Because she is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                break;
+            default:
+                cout &lt;&lt; &quot;Because (he/she) is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                break;
+        }
+
+        Node* temp = head;
+        head = head-&gt;next;  
+        delete temp;
+    }
+
+    void displayQueue() {
+        if (head == NULL) {
+            cout &lt;&lt; &quot;\nThe Queue is Empty!\n&quot;;
+            return;
+        }
+
+        Node* temp = head;
+        int i = 1;
+        while (temp) {
+            cout &lt;&lt; &quot;\nPerson &quot; &lt;&lt; i &lt;&lt; &quot;:\n&quot;;
+            cout &lt;&lt; &quot;Name: &quot; &lt;&lt; temp-&gt;data.name &lt;&lt; &quot;\n&quot;;
+            cout &lt;&lt; &quot;Age: &quot; &lt;&lt; temp-&gt;data.age &lt;&lt; &quot;\n&quot;;
+            cout &lt;&lt; &quot;Gender: &quot; &lt;&lt; temp-&gt;data.gender &lt;&lt; &quot;\n&quot;;
+            temp = temp-&gt;next;
+            i++;
+        }
+    }
+};
+
+int main() {
+    linkedlist hospital;
+    int n;
+    menu:
+    cout &lt;&lt; &quot;\n1. Enter a person in the Queue.&quot;;
+    cout &lt;&lt; &quot;\n2. Serve a person.&quot;;
+    cout &lt;&lt; &quot;\n3. Show the list.&quot;;
+    cout &lt;&lt; &quot;\n4. Exit\n&quot;;
+    cout &lt;&lt; &quot;Enter choice: &quot;;
+    cin &gt;&gt; n;
+
+    switch (n) {
+        case 1:
+            hospital.insertQueue();
+            goto menu;
+        case 2:
+            hospital.serveQueue();
+            goto menu;
+        case 3:
+            hospital.displayQueue();
+            goto menu;
+        case 4:
+            return 0;
+        default:
+            cout &lt;&lt; &quot;\nInvalid choice! Try again.\n&quot;;
+            goto menu;
+    }
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-04-queues-and-priority-queues-simple-queue_cpp" style="display: none;">
+            <h3>04-queues-and-priority-queues/simple-queue.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+struct Queue {
+    string name;
+    int age;
+    char gender;
+};
+
+struct Node {
+    Queue data;
+    Node* next;
+};
+
+class linkedlist {
+private:
+    Node* head;
+    int front = -1;
+    int rare = -1;
+
+public:
+    linkedlist() {
+        head = NULL;
+    }
+
+    void insertQueue() {
+        rare++;
+        Node* point = new Node();
+        cout &lt;&lt; &quot;\nEnter Name:&quot;;
+        cin &gt;&gt; point-&gt;data.name;
+        cout &lt;&lt; &quot;\nEnter Age:&quot;;
+        cin &gt;&gt; point-&gt;data.age;
+        cout &lt;&lt; &quot;\nEnter Gender (M/F):&quot;;
+        cin &gt;&gt; point-&gt;data.gender;
+
+        point-&gt;next = NULL; 
+
+        if (rare == 0) {
+            front = 0;
+        }
+
+        if (head == NULL) {
+            head = point;
+        } else {
+            Node* temp = head;
+            while (temp-&gt;next) {
+                temp = temp-&gt;next;
+            }
+            temp-&gt;next = point;  
+        }
+    }
+
+    void serveQueue() {
+        if (front &gt;= 0) {
+            if (head == NULL) {
+                cout &lt;&lt; &quot;\nThe Queue is Empty!\n&quot;;
+                return;
+            }
+            
+            cout &lt;&lt; &quot;Processing...... &quot; &lt;&lt; head-&gt;data.name &lt;&lt; &quot; has been served\n&quot;;
+
+            switch (head-&gt;data.gender) {
+                case &#x27;M&#x27;: case &#x27;m&#x27;:
+                    cout &lt;&lt; &quot;Because he is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                    break;
+                case &#x27;F&#x27;: case &#x27;f&#x27;:
+                    cout &lt;&lt; &quot;Because she is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                    break;
+                default:
+                    cout &lt;&lt; &quot;Because (he/she) is &quot; &lt;&lt; head-&gt;data.age &lt;&lt; &quot; years old\n&quot;;
+                    break;
+            }
+
+            Node* temp = head;
+            head = head-&gt;next;  
+            delete temp;
+
+            rare--;  
+            if (rare &lt; 0) front = -1;
+        } else {
+            cout &lt;&lt; &quot;\nThe Queue is Empty!\n&quot;;
+        }
+    }
+
+    void displayQueue() {
+        if (front &gt;= 0 &amp;&amp; head != NULL) {
+            Node* temp = head;
+            int i = 1;
+
+            while (temp) {
+                cout &lt;&lt; &quot;\nPerson &quot; &lt;&lt; i &lt;&lt; &quot;:\n&quot;;
+                cout &lt;&lt; &quot;Name: &quot; &lt;&lt; temp-&gt;data.name &lt;&lt; &quot;\n&quot;;
+                cout &lt;&lt; &quot;Age: &quot; &lt;&lt; temp-&gt;data.age &lt;&lt; &quot;\n&quot;;
+                cout &lt;&lt; &quot;Gender: &quot; &lt;&lt; temp-&gt;data.gender &lt;&lt; &quot;\n&quot;;
+                temp = temp-&gt;next;
+                i++;
+            }
+        } else {
+            cout &lt;&lt; &quot;\nThe Queue is Empty!\n&quot;;
+        }
+    }
+};
+
+int main() {
+    linkedlist hospital;
+    int n;
+    menu:
+    cout &lt;&lt; &quot;\n1. Enter a person in the Queue.&quot;;
+    cout &lt;&lt; &quot;\n2. Serve a person.&quot;;
+    cout &lt;&lt; &quot;\n3. Show the list.&quot;;
+    cout &lt;&lt; &quot;\n4. Exit\n&quot;;
+    cout &lt;&lt; &quot;Enter choice: &quot;;
+    cin &gt;&gt; n;
+
+    switch (n) {
+        case 1:
+            hospital.insertQueue();
+            goto menu;
+        case 2:
+            hospital.serveQueue();
+            goto menu;
+        case 3:
+            hospital.displayQueue();
+            goto menu;
+        case 4:
+            return 0;
+        default:
+            cout &lt;&lt; &quot;\nInvalid choice! Try again.\n&quot;;
+            goto menu;
+    }
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-05-graphs-and-matrices-README_md" style="display: none;">
+            <h3>05-graphs-and-matrices/README.md</h3>
+            <pre><code># Graphs and matrices
+
+- [undirected-graph-adjacency-matrix.cpp](undirected-graph-adjacency-matrix.cpp) marks connections between three vertices in an adjacency matrix and prints it.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-05-graphs-and-matrices-undirected-graph-adjacency-matrix_cpp" style="display: none;">
+            <h3>05-graphs-and-matrices/undirected-graph-adjacency-matrix.cpp</h3>
+            <pre><code>#include&lt;iostream&gt;
+using namespace std;
+
+#define v 3
+
+void add(int mat[v][v], int i, int j){
+  mat[i][j] = 1;
+  mat[j][i] = 1;  
+}
+
+void display(int mat[v][v]){
+  for(int i = 0; i &lt; v; i++){
+    for(int j = 0; j &lt; v; j++){  
+      cout &lt;&lt; mat[i][j] &lt;&lt; &quot; &quot;;
+    }
+    cout &lt;&lt; endl;
+  }
+}
+
+int main(){
+  int mat[v][v] = {{0}};  
+
+  add(mat, 0, 2);
+  add(mat, 0, 1);
+  add(mat, 1, 2);
+
+  display(mat);
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-06-hash-tables-README_md" style="display: none;">
+            <h3>06-hash-tables/README.md</h3>
+            <pre><code># Hash tables
+
+- [linear-probing-hash-table.cpp](linear-probing-hash-table.cpp) stores values in a fixed-size table and checks later slots when a collision occurs.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-06-hash-tables-linear-probing-hash-table_cpp" style="display: none;">
+            <h3>06-hash-tables/linear-probing-hash-table.cpp</h3>
+            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+const int SIZE = 10;
+
+class HashTable {
+private:
+    int table[SIZE];
+
+public:
+    HashTable() {
+        for (int i = 0; i &lt; SIZE; i++)
+            table[i] = -1; // -1 indicates empty slot
+    }
+
+    // Hash function
+    int hashFunction(int key) {
+        return key % SIZE;
+    }
+
+    // Insert using linear probing
+    void insert(int key) {
+        int index = hashFunction(key);
+
+        // Linear probing
+        int startIndex = index;
+        while (table[index] != -1) {
+            index = (index + 1) % SIZE;
+            if (index == startIndex) {
+                cout &lt;&lt; &quot;Hash table is full!\n&quot;;
+                return;
+            }
+        }
+
+        table[index] = key;
+    }
+
+    // Search for a key
+    bool search(int key) {
+        int index = hashFunction(key);
+        int startIndex = index;
+
+        while (table[index] != -1) {
+            if (table[index] == key)
+                return true;
+            index = (index + 1) % SIZE;
+            if (index == startIndex)
+                break;
+        }
+
+        return false;
+    }
+
+    // Display the table
+    void display() {
+        cout &lt;&lt; &quot;Hash Table:\n&quot;;
+        for (int i = 0; i &lt; SIZE; i++) {
+            cout &lt;&lt; i &lt;&lt; &quot; --&gt; &quot;;
+            if (table[i] != -1)
+                cout &lt;&lt; table[i];
+            else
+                cout &lt;&lt; &quot;EMPTY&quot;;
+            cout &lt;&lt; endl;
+        }
+    }
+};
+
+int main() {
+    HashTable ht;
+    int n, value;
+
+    cout &lt;&lt; &quot;Enter number of elements to insert: &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter &quot; &lt;&lt; n &lt;&lt; &quot; values:\n&quot;;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; value;
+        ht.insert(value);
+    }
+
+    ht.display();
+
+    cout &lt;&lt; &quot;\nEnter value to search: &quot;;
+    cin &gt;&gt; value;
+    if (ht.search(value))
+        cout &lt;&lt; value &lt;&lt; &quot; found in hash table.\n&quot;;
+    else
+        cout &lt;&lt; value &lt;&lt; &quot; not found in hash table.\n&quot;;
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-07-heaps-README_md" style="display: none;">
+            <h3>07-heaps/README.md</h3>
+            <pre><code># Heaps
+
+- [min-heap.cpp](min-heap.cpp) stores a min-heap in an array, inserts values, and removes the minimum. The source uses an array rather than linked tree nodes.
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-07-heaps-min-heap_cpp" style="display: none;">
+            <h3>07-heaps/min-heap.cpp</h3>
+            <pre><code>#include &lt;iostream&gt;
+using namespace std;
+
+#define MAX 100
+
+class MinHeap {
+    int arr[MAX];
+    int size;
+
+public:
+    MinHeap() {
+        size = 0;
+    }
+
+    // Insert an element
+    void insert(int val) {
+        if (size &gt;= MAX) {
+            cout &lt;&lt; &quot;Heap is full!\n&quot;;
+            return;
+        }
+
+        // Add to the end
+        arr[size] = val;
+        int i = size;
+        size++;
+
+        // Fix the min-heap property by moving up
+        while (i != 0 &amp;&amp; arr[(i - 1) / 2] &gt; arr[i]) {
+            swap(arr[i], arr[(i - 1) / 2]);
+            i = (i - 1) / 2;
+        }
+    }
+
+    // Display the heap as array
+    void display() {
+        cout &lt;&lt; &quot;Heap array:\n&quot;;
+        for (int i = 0; i &lt; size; i++)
+            cout &lt;&lt; arr[i] &lt;&lt; &quot; &quot;;
+        cout &lt;&lt; endl;
+    }
+
+    // Remove and return minimum (root)
+    int removeMin() {
+        if (size &lt;= 0)
+            return -1;
+
+        if (size == 1) {
+            size--;
+            return arr[0];
+        }
+
+        int root = arr[0];
+        arr[0] = arr[size - 1];
+        size--;
+
+        heapify(0);
+        return root;
+    }
+
+private:
+    // Heapify (min-heap) from given index
+    void heapify(int i) {
+        int smallest = i;
+        int left = 2*i + 1;
+        int right = 2*i + 2;
+
+        if (left &lt; size &amp;&amp; arr[left] &lt; arr[smallest])
+            smallest = left;
+
+        if (right &lt; size &amp;&amp; arr[right] &lt; arr[smallest])
+            smallest = right;
+
+        if (smallest != i) {
+            swap(arr[i], arr[smallest]);
+            heapify(smallest);
+        }
+    }
+};
+
+int main() {
+    MinHeap heap;
+    int n, val;
+
+    cout &lt;&lt; &quot;Enter number of elements to insert: &quot;;
+    cin &gt;&gt; n;
+
+    cout &lt;&lt; &quot;Enter values:\n&quot;;
+    for (int i = 0; i &lt; n; i++) {
+        cin &gt;&gt; val;
+        heap.insert(val);
+    }
+
+    heap.display();
+
+    cout &lt;&lt; &quot;\nMinimum value removed: &quot; &lt;&lt; heap.removeMin() &lt;&lt; endl;
+
+    cout &lt;&lt; &quot;\nHeap after removal:\n&quot;;
+    heap.display();
+
+    return 0;
+}
+</code></pre>
+        </section>
+
+        <section class="file-content-display" id="file-README_md" style="display: none;">
+            <h3>README.md</h3>
+            <pre><code># Data Structures and Algorithms
+
+**Course:** CSCP2033 + CSCP2031 (Lab)
+
+The programs in this repository are grouped by topic. The source code was kept as it was; the folders and filenames are there to make it easier to find each example.
+
+## Folders
+
+- [01 — Binary search trees](01-binary-search-trees/README.md)
+- [02 — AVL trees](02-avl-trees/README.md)
+- [03 — Linked lists](03-linked-lists/README.md)
+- [04 — Queues and priority queues](04-queues-and-priority-queues/README.md)
+- [05 — Graphs and matrices](05-graphs-and-matrices/README.md)
+- [06 — Hash tables](06-hash-tables/README.md)
+- [07 — Heaps](07-heaps/README.md)
+
+## Run a program
+
+For a C++ example, compile one file from the repository root. Quote the path if it contains spaces:
+
+```bash
+g++ -std=c++17 &quot;01-binary-search-trees/inorder-traversal.cpp&quot; -o /tmp/tree-example
+/tmp/tree-example
+```
+
+Run the Python linked-list example with `python3 03-linked-lists/singly-linked-list.py`.
+
+## HTML preview
+
+Open `index.html` to browse the files. Run `python3 generate_html.py` from the repository root to refresh both `index.html` and `generated_index.html`.
+</code></pre>
+        </section>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>Dynamically generated code showcase. Styled for a modern experience.</p>
+    </footer>
+
+    <script>
+        // Client-side script to handle showing/hiding content sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileLinks = document.querySelectorAll('.file-list a');
+            const contentSections = document.querySelectorAll('.file-content-display');
+            const welcomeMessage = document.querySelector('.main-content .welcome-message');
+            const wrapper = document.getElementById('file-content-wrapper');
+
+            // Initially hide all content sections if JS is enabled
+            // Python will generate them, but JS can manage visibility
+            contentSections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            if (contentSections.length > 0 && welcomeMessage) {
+                 // If there's content, but nothing selected, show welcome.
+                 // If URL hash points to a file, it will be shown later.
+            } else if (contentSections.length === 0 && welcomeMessage) {
+                welcomeMessage.textContent = 'No file content to display. Repository might be empty or files are directories only.';
+            }
+
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    // Check if it's a directory link (ends with / or has a specific class if we add one)
+                    // For now, assume all links point to displayable content sections or are handled by URL hash
+                    if (this.href.includes('#')) { // Only process links with hashes
+                        event.preventDefault();
+
+                        const targetId = this.getAttribute('href').substring(1); // Get ID from href (e.g., #file-main-py)
+
+                        // Hide all sections and remove active class from links
+                        contentSections.forEach(section => section.style.display = 'none');
+                        fileLinks.forEach(lnk => lnk.classList.remove('active'));
+
+                        // Show the target section and set active class on link
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            if(welcomeMessage) welcomeMessage.style.display = 'none';
+                            targetSection.style.display = 'block';
+                            this.classList.add('active');
+                            window.location.hash = targetId; // Update URL hash
+                        } else {
+                            if(welcomeMessage) {
+                                welcomeMessage.textContent = 'Content not found for ' + targetId.replace(/file-/g, '').replace(/_/g, '.');
+                                welcomeMessage.style.display = 'block';
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Check URL hash on page load to show specific file
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetLink = document.querySelector(`.file-list a[href="#${targetId}"]`);
+                if (targetLink) {
+                    targetLink.click(); // Simulate click to show content and set active state
+                } else if (document.getElementById(targetId)) { // If section exists but no link matched (e.g. manual hash)
+                     contentSections.forEach(section => section.style.display = 'none');
+                     document.getElementById(targetId).style.display = 'block';
+                     if(welcomeMessage) welcomeMessage.style.display = 'none';
+                }
+            } else if (contentSections.length > 0 && welcomeMessage) {
+                // If there's content but no hash, ensure welcome message is shown
+                welcomeMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
