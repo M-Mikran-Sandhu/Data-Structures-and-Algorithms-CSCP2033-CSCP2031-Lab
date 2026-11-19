@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{repo_name} - Code Showcase</title>
+	<link rel="icon" href="https://i.pinimg.com/736x/f6/3f/4c/f63f4c2b21694578d39deaae47c73f4c.jpg">
+
+    <style>
+        :root {
+            --primary-color: #2c3e50; /* Dark Slate Blue */
+            --secondary-color: #8e44ad; /* Royal Purple */
+            --accent-color: #f1c40f; /* Sunflower Yellow/Gold */
+            --background-color: #ecf0f1; /* Light Greyish Blue */
+            --text-color: #34495e; /* Wet Asphalt (Dark Grey) */
+            --light-text-color: #ffffff;
+            --border-color: #bdc3c7; /* Silver */
+            --code-bg-color: #282c34; /* Dark background for code */
+            --code-text-color: #abb2bf; /* Light grey for code text */
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            display: flex;
+            flex-grow: 1;
+            width: 100%;
+            max-width: 1600px; /* Allow wider content */
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 20px 30px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 0.2em;
+            font-weight: 300;
+        }
+
+        header h1 a {
+            color: var(--light-text-color);
+            text-decoration: none;
+        }
+         header h1 a:hover {
+            color: var(--accent-color);
+        }
+
+        header p {
+            font-size: 1.1em;
+            margin-bottom: 0.5em;
+            color: var(--border-color); /* Lighter text for description */
+        }
+
+        header .repo-link-header {
+            font-size: 0.9em;
+        }
+
+        header .repo-link-header a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+        header .repo-link-header a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar {
+            width: 25%;
+            min-width: 280px; /* Min width for file list */
+            background-color: #ffffff;
+            padding: 20px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto; /* Scroll if file list is long */
+            box-shadow: 1px 0 3px rgba(0,0,0,0.05);
+        }
+
+        .sidebar h2 {
+            font-size: 1.6em;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 10px;
+            margin-top: 0;
+            font-weight: 500;
+        }
+
+        .file-list ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .file-list li {
+            margin-bottom: 8px;
+        }
+
+        .file-list a {
+            text-decoration: none;
+            color: var(--primary-color);
+            font-weight: 500;
+            padding: 8px 12px;
+            display: block;
+            border-radius: 4px;
+            transition: background-color 0.2s ease, color 0.2s ease;
+        }
+
+        .file-list a:hover, .file-list a.active {
+            background-color: var(--secondary-color);
+            color: var(--light-text-color);
+        }
+
+        .file-list a.dir-link { /* Style for directory links */
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+        .file-list a.dir-link:hover {
+             background-color: var(--primary-color);
+        }
+
+
+        .main-content {
+            flex-grow: 1;
+            padding: 25px 30px;
+            overflow-y: auto; /* Scroll for long content */
+        }
+
+        .main-content h2.welcome-message {
+            color: var(--primary-color);
+            text-align: center;
+            font-weight: 400;
+        }
+
+        .file-content-wrapper {
+            /* This div will be replaced by Python script */
+        }
+
+        .file-content-display { /* Class for individual file content sections */
+            background-color: #ffffff;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            margin-bottom: 25px; /* Space between content blocks if multiple are shown */
+        }
+
+        .file-content-display h3 {
+            background-color: var(--primary-color);
+            color: var(--light-text-color);
+            padding: 12px 20px;
+            margin: 0;
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+            font-size: 1.3em;
+            font-weight: 500;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .file-content-display pre {
+            background-color: var(--code-bg-color);
+            color: var(--code-text-color);
+            padding: 20px;
+            margin: 0;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+            font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        footer {
+            background-color: var(--primary-color);
+            color: var(--border-color); /* Lighter text for footer */
+            text-align: center;
+            padding: 15px;
+            font-size: 0.9em;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) { /* Medium devices (tablets, less than 992px) */
+            .container {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                min-width: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                max-height: 40vh; /* Limit height of sidebar on small screens */
+            }
+            .main-content {
+                padding: 20px;
+            }
+        }
+        @media (max-width: 768px) { /* Small devices (landscape phones, less than 768px) */
+             header h1 {
+                font-size: 2em;
+            }
+            .sidebar h2 {
+                font-size: 1.4em;
+            }
+             .file-content-display h3 {
+                font-size: 1.15em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="{repo_link}" target="_blank">{repo_name}</a></h1>
+        <p>{repo_description}</p>
+        <p class="repo-link-header">Repository: <a href="{repo_link}" target="_blank">{repo_link}</a></p>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <h2>File Explorer</h2>
+            <nav class="file-list">
+                <ul id="file-list-ul">
+                    <!-- File items will be dynamically inserted here by Python -->
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <!-- This div will contain all file content sections generated by Python -->
+            <div class="file-content-wrapper" id="file-content-wrapper">
+                <h2 class="welcome-message">Select a file from the list to view it.</h2>
+                <!-- File content sections will be dynamically inserted here by Python -->
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <p>Dynamically generated code showcase. Styled for a modern experience.</p>
+    </footer>
+
+    <script>
+        // Client-side script to handle showing/hiding content sections
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileLinks = document.querySelectorAll('.file-list a');
+            const contentSections = document.querySelectorAll('.file-content-display');
+            const welcomeMessage = document.querySelector('.main-content .welcome-message');
+            const wrapper = document.getElementById('file-content-wrapper');
+
+            // Initially hide all content sections if JS is enabled
+            // Python will generate them, but JS can manage visibility
+            contentSections.forEach(section => {
+                section.style.display = 'none';
+            });
+
+            if (contentSections.length > 0 && welcomeMessage) {
+                 // If there's content, but nothing selected, show welcome.
+                 // If URL hash points to a file, it will be shown later.
+            } else if (contentSections.length === 0 && welcomeMessage) {
+                welcomeMessage.textContent = 'No file content to display. Repository might be empty or files are directories only.';
+            }
+
+
+            fileLinks.forEach(link => {
+                link.addEventListener('click', function(event) {
+                    // Check if it's a directory link (ends with / or has a specific class if we add one)
+                    // For now, assume all links point to displayable content sections or are handled by URL hash
+                    if (this.href.includes('#')) { // Only process links with hashes
+                        event.preventDefault();
+
+                        const targetId = this.getAttribute('href').substring(1); // Get ID from href (e.g., #file-main-py)
+
+                        // Hide all sections and remove active class from links
+                        contentSections.forEach(section => section.style.display = 'none');
+                        fileLinks.forEach(lnk => lnk.classList.remove('active'));
+
+                        // Show the target section and set active class on link
+                        const targetSection = document.getElementById(targetId);
+                        if (targetSection) {
+                            if(welcomeMessage) welcomeMessage.style.display = 'none';
+                            targetSection.style.display = 'block';
+                            this.classList.add('active');
+                            window.location.hash = targetId; // Update URL hash
+                        } else {
+                            if(welcomeMessage) {
+                                welcomeMessage.textContent = 'Content not found for ' + targetId.replace(/file-/g, '').replace(/_/g, '.');
+                                welcomeMessage.style.display = 'block';
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Check URL hash on page load to show specific file
+            if (window.location.hash) {
+                const targetId = window.location.hash.substring(1);
+                const targetLink = document.querySelector(`.file-list a[href="#${targetId}"]`);
+                if (targetLink) {
+                    targetLink.click(); // Simulate click to show content and set active state
+                } else if (document.getElementById(targetId)) { // If section exists but no link matched (e.g. manual hash)
+                     contentSections.forEach(section => section.style.display = 'none');
+                     document.getElementById(targetId).style.display = 'block';
+                     if(welcomeMessage) welcomeMessage.style.display = 'none';
+                }
+            } else if (contentSections.length > 0 && welcomeMessage) {
+                // If there's content but no hash, ensure welcome message is shown
+                welcomeMessage.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
